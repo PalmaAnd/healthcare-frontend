@@ -9,48 +9,32 @@ A short description of your project goes here.
   - [Introduction](#introduction)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
-    - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [Code of Conduct](#code-of-conduct)
-  - [License](#license)
-  - [Acknowledgments](#acknowledgments)
+    - [Color Palette](#color-palette)
+    - [Installation website](#installation-website)
+    - [Installation app](#installation-app)
 
 ## Introduction
-
-Provide a brief introduction to your project. Explain what it does, why it's useful, and any key features.
 
 ## Getting Started
 
 ### Prerequisites
 
-List any prerequisites or dependencies that need to be installed before using the project. Include links or instructions for installation if necessary.
+Node v20 or newer and npm.
+Also all extensions listed in [this file](.vscode/extensions.json)
 
-### Installation
+### Color Palette
 
-Provide step-by-step instructions on how to install and set up the project. You can use code snippets if applicable.
+`primary: #DEF9C4`
+`secondary: #9CDBA6`
+`accent: #50B498`
+`background: #468585`
+
+### Installation website
 
 ```bash
-# Example installation command
+cd patientenbuch-website
+
 npm install
 ```
 
-## Usage
-
-Explain how to use the project. Provide code examples or usage scenarios if applicable.
-
-## Contributing
-
-We welcome contributions from the community! If you'd like to contribute to this project, please review our [Contributing Guidelines](.github/CONTRIBUTING) for more information on how to get started.
-
-## Code of Conduct
-
-Please read and adhere to our [Code of Conduct](.github/CODE_OF_CONDUCT.md) to foster an inclusive and respectful community.
-
-## License
-
-This project is licensed under the [Apache License](LICENSE.md).
-
-## Acknowledgments
-
-If you want to give credit to individuals or projects that inspired or helped you, you can include an acknowledgments section.
+### Installation app
