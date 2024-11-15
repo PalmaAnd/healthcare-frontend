@@ -10,7 +10,8 @@
         "ms-vscode.vscode-typescript-next",
         "christian-kohler.path-intellisense",
         "bradlc.vscode-tailwindcss",
-        "prisma.prisma"
+        "prisma.prisma",
+        "dart-code.flutter"
     ],
     "unwantedRecommendations": []
 }
