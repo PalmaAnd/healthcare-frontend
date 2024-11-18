@@ -42,9 +42,13 @@ To learn more about developing your project with Expo, look at the following res
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
-## Join the community
 
-Join our community of developers creating universal apps.
+### Hotfix Andre
+1. Set `adb` and `ANDROID_HOME` as environment variable in your system. 
+2. On your phone, go into _Developer options_, activate _USB debugging_ and *Wireless debugging*.
+3. Now you should be able to open the app by connecting it to your computer via USB.
+4. Add your device to **Running Devices** in _Android Studio_
+5. Run `npm run android`
+6. Make sure no VPN is active
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```npm run android -- --host localhost```

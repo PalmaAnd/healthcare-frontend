@@ -1,0 +1,307 @@
+---
+// src/pages/doctor-registration.astro
+---
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Doctor Registration</h1>
+        <form
+            class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-2xl mx-auto"
+        >
+            <div class="grid grid-cols-2 gap-4">
+                <div class="mb-4">
+                    <label
+                        class="block text-gray-700 text-sm font-bold mb-2"
+                        for="firstName"
+                    >
+                        First Name
+                    </label>
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="firstName"
+                        type="text"
+                        required
+                    />
+                </div>
+                <div class="mb-4">
+                    <label
+                        class="block text-gray-700 text-sm font-bold mb-2"
+                        for="lastName"
+                    >
+                        Last Name
+                    </label>
+                    <input
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="lastName"
+                        type="text"
+                        required
+                    />
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">
+                    Gender
+                </label>
+                <div class="flex">
+                    <label class="mr-4">
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="male"
+                            required
+                        />
+                        <span class="ml-2">Male</span>
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="female"
+                            required
+                        />
+                        <span class="ml-2">Female</span>
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="gender"
+                            value="diverse"
+                            required
+                        />
+                        <span class="ml-2">Female</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="dob"
+                >
+                    Date of Birth
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="dob"
+                    type="date"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="photo"
+                >
+                    Photo Upload
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="photo"
+                    type="file"
+                    accept="image/*"
+                    required
+                />
+                <img
+                    id="photoPreview"
+                    class="mt-2 hidden max-w-xs"
+                    alt="Photo preview"
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="phone"
+                >
+                    Phone Number
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="phone"
+                    type="tel"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="email"
+                >
+                    Email Address
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="email"
+                    type="email"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="specialization"
+                >
+                    Specialization
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="specialization"
+                    type="text"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="subSpecialization"
+                >
+                    Sub-specialization
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="subSpecialization"
+                    type="text"
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="licenseNumber"
+                >
+                    Medical License Number
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="licenseNumber"
+                    type="text"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="issuingAuthority"
+                >
+                    Issuing Authority
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="issuingAuthority"
+                    type="text"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="licenseValidity"
+                >
+                    License Validity
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="licenseValidity"
+                    type="date"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="experience"
+                >
+                    Years of Experience
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="experience"
+                    type="number"
+                    min="0"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="currentWorkplace"
+                >
+                    Current Workplace
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="currentWorkplace"
+                    type="text"
+                    required
+                />
+            </div>
+
+            <div class="mb-4">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="clinicHours"
+                >
+                    Clinic Hours
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="clinicHours"
+                    type="text"
+                    placeholder="e.g., Mon-Fri: 9AM-5PM"
+                    required
+                />
+            </div>
+
+            <div class="mb-6">
+                <label
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                    for="telemedicHours"
+                >
+                    Telemedic Hours
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="telemedicHours"
+                    type="text"
+                    placeholder="e.g., Sat-Sun: 10AM-2PM"
+                    required
+                />
+            </div>
+
+            <div class="flex items-center justify-center">
+                <button
+                    class="bg-accent hover:bg-secondary text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit"
+                >
+                    Register
+                </button>
+            </div>
+        </form>
+    </div>
+    <!-- 
+        <script>
+            const photoInput = document.getElementById("photo");
+            const photoPreview = document.getElementById("photoPreview");
+
+            photoInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        photoPreview.src = e.target.result;
+                        photoPreview.classList.remove("hidden");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        </script> -->
+</body>
