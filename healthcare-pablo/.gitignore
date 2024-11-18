@@ -3,8 +3,6 @@
 # dependencies
 node_modules/
 
-.idea/
-
 # Expo
 .expo/
 dist/
@@ -38,3 +36,4 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+/.idea/
