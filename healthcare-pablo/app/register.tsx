@@ -60,7 +60,7 @@ export default class Signup extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Text style={styles.title}>Medical Procedure Registration</Text>
+        <Text style={styles.title}>User Registration</Text>
         <TextInput
           style={styles.inputStyle}
           placeholder="Full Name"
