@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Homepage">
+    <section class="text-center py-12">
+        <h1 class="text-4xl font-bold mb-4">Welcome</h1>
+        <p class="text-xl mb-8">
+            Your trusted healthcare provider for a healthier tomorrow.
+        </p>
+        <a
+            href="/appointments"
+            class="bg-accent text-primary px-6 py-3 rounded-full text-lg font-semibold hover:bg-secondary transition-colors"
+            >Book an Appointment</a
+        >
+    </section>
+
+    <section class="grid md:grid-cols-2 gap-8 my-12">
+        <div class="bg-secondary p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4">Our Services</h2>
+            <ul class="list-disc list-inside">
+                <li>General Check-ups</li>
+                <li>Specialized Consultations</li>
+                <li>Preventive Care</li>
+                <li>Chronic Disease Management</li>
+            </ul>
+        </div>
+        <div class="bg-secondary p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4">Why Choose Us?</h2>
+            <ul class="list-disc list-inside">
+                <li>Experienced Healthcare Professionals</li>
+                <li>State-of-the-art Facilities</li>
+                <li>Patient-Centered Approach</li>
+                <li>Convenient Online Appointments</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="text-center py-12">
+        <h2 class="text-3xl font-bold mb-4">
+            Ready to Take Control of Your Health?
+        </h2>
+        <p class="text-xl mb-8">
+            Join our community of health-conscious individuals today.
+        </p>
+        <a
+            href="/login"
+            class="bg-accent text-primary px-6 py-3 rounded-full text-lg font-semibold hover:bg-secondary transition-colors"
+            >Register Now</a
+        >
+    </section>
+</Layout>
