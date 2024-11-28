@@ -5,11 +5,17 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home screen</Text>
-      <Link href="/register" style={styles.button}>
-        Go to Register screen
+      <Link href="/" style={styles.button}>
+        Go back to Index screen
       </Link>
       <Link href="/login" style={styles.button}>
         Go to Login screen
+      </Link>
+      <Link href="/register" style={styles.button}>
+          Go to Register screen
+      </Link>
+      <Link href="/appointments" style={styles.button}>
+            Go to Appointment screen
       </Link>
     </View>
   );
