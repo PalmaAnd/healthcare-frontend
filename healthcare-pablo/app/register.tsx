@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert, ActivityIndicator, ScrollView, TouchableOpacity, Pressable } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
+import { useState } from 'react'; 
+import { IonIcons } from '@expo/vector-icons';
 
 export default class Signup extends Component {
   constructor() {
@@ -167,7 +169,7 @@ export default class Signup extends Component {
           </Text>
         </View>
         <Button
-          color="#3740FE"
+          color="#50B498"
           title="Signup"
           onPress={() => this.registerUser()}
         />

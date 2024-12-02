@@ -17,6 +17,9 @@ export default function Index() {
       <Link href="/appointments" style={styles.button}>
             Go to Appointment screen
       </Link>
+      <Link href="/dashboard" style={styles.button}>
+          Go to Dashboard screen
+      </Link>
     </View>
   );
 }

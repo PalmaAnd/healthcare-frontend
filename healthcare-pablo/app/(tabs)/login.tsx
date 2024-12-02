@@ -15,8 +15,26 @@ export default class Signup extends Component {
   }
 
   loginClient = () => {
-      console.log("Halts Maul")
+    const { email, password } = this.state;
+
+    // Check email for  "@" symbol
+    if (!email.includes('@')) {
+      Alert.alert('Invalid Input', 'Please enter a valid email address.');
+      return;
     }
+
+    // Check for filled email/password
+    if (!email || !password) {
+      Alert.alert('Invalid Input', 'Please fill in both email and password fields.');
+      return;
+    }
+
+    // Login logic
+    console.log('Email:', email);
+    console.log('Password:', password);
+    Alert.alert('Success', 'Login successful!');
+  };
+
 
   handleClick = () => {
       this.setState((prevState) => {
@@ -27,6 +45,12 @@ export default class Signup extends Component {
         };
       });
     };
+  updateInputVal = (val, prop) => {
+    this.setState({
+      [prop]: val,
+    });
+  };
+
 
   render() {
   const screenWidth = Dimensions.get('window').width;

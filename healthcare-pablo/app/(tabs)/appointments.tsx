@@ -1,22 +1,33 @@
-import { Text, View, StyleSheet } from 'react-native';
- import { Link } from 'expo-router';
+import React from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
-export default function Index() {
+const appointments = [
+  { id: '1', patient: 'John Doe', date: '2023-06-15', time: '10:00 AM' },
+  { id: '2', patient: 'Jane Smith', date: '2023-06-15', time: '11:30 AM' },
+  { id: '3', patient: 'Bob Johnson', date: '2023-06-16', time: '2:00 PM' },
+];
+
+export default function AppointmentsScreen() {
+  const renderItem = ({ item }) => (
+    <View style={styles.appointmentItem}>
+      <View>
+        <Text style={styles.patientName}>{item.patient}</Text>
+        <Text style={styles.appointmentTime}>{item.date} at {item.time}</Text>
+      </View>
+      <TouchableOpacity style={styles.viewButton}>
+        <Text style={styles.viewButtonText}>View</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Home screen</Text>
-      <Link href="/" style={styles.button}>
-        Go back to Index screen
-      </Link>
-      <Link href="/login" style={styles.button}>
-        Go to Login screen
-      </Link>
-      <Link href="/register" style={styles.button}>
-          Go to Register screen
-      </Link>
-      <Link href="/impressum" style={styles.button}>
-            Go to Impressum screen
-      </Link>
+      <FlatList
+        data={appointments}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        contentContainerStyle={styles.listContent}
+      />
     </View>
   );
 }
@@ -24,16 +35,35 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#fff',
+  },
+  listContent: {
+    padding: 20,
+  },
+  appointmentItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e2e8f0',
   },
-  text: {
-    color: '#fff',
+  patientName: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-  button: {
-    fontSize: 20,
-    textDecorationLine: 'underline',
-    color: '#fff',
+  appointmentTime: {
+    fontSize: 14,
+    color: '#718096',
+  },
+  viewButton: {
+    backgroundColor: '#ebf8ff',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+  },
+  viewButtonText: {
+    color: '#4299e1',
+    fontWeight: 'bold',
   },
 });
