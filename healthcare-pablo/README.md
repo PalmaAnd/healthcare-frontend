@@ -52,3 +52,10 @@ To learn more about developing your project with Expo, look at the following res
 6. Make sure no VPN is active
 
 ```npm run android -- --host localhost```
+
+### Color Palette
+
+`primary: #DEF9C4`
+`secondary: #9CDBA6`
+`accent: #50B498`
+`background: #468585`
