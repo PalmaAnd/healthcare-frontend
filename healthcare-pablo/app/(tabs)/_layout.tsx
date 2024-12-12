@@ -62,6 +62,24 @@ export default function TabLayout() {
                  )
             }}
         />
+        <Tabs.Screen
+                    name="dashboard"
+                    options={{
+                        title: 'Dashboard',
+                         tabBarIcon: ({ color, focused }) => (
+                              <Ionicons name={focused ? 'apps-sharp': 'apps-outline'} color={color} size={24} />
+                         )
+                    }}
+        />
+        <Tabs.Screen
+                            name="records"
+                            options={{
+                                title: 'records',
+                                 tabBarIcon: ({ color, focused }) => (
+                                      <Ionicons name={focused ? 'file-tray-full-sharp': 'file-tray-full-outline'} color={color} size={24} />
+                                 )
+                            }}
+                />
     </Tabs>
   );
 }

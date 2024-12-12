@@ -12,8 +12,15 @@ export default function DashboardScreen() {
         <Text style={styles.title}>Quick Actions</Text>
         <View style={styles.grid}>
           <TouchableOpacity
+            style={[styles.card, { backgroundColor: '#f0fff4' }]}
+            onPress={() => navigation.navigate('Profile')}
+          >
+            <Ionicons name="person-outline" size={48} color="#50B498" />
+            <Text style={[styles.cardText, { color: '#50B498' }]}>Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={[styles.card, { backgroundColor: '#ebf8ff' }]}
-            onPress={() => navigation.navigate('Appointments')}
+            onPress={() => navigation.navigate('appointments')}
           >
             <Ionicons name="calendar-outline" size={48} color="#4299e1" />
             <Text style={[styles.cardText, { color: '#4299e1' }]}>Appointments</Text>
@@ -22,14 +29,15 @@ export default function DashboardScreen() {
             style={[styles.card, { backgroundColor: '#f0fff4' }]}
             onPress={() => navigation.navigate('Records')}
           >
-            <Ionicons name="document-text-outline" size={48} color="#48bb78" />
-            <Text style={[styles.cardText, { color: '#48bb78' }]}>Patient Records</Text>
+            <Ionicons name="document-text-outline" size={48} color="#50B498" />
+            <Text style={[styles.cardText, { color: '#50B498' }]}>Patient Records</Text>
           </TouchableOpacity>
+
         </View>
       </View>
       <TouchableOpacity
         style={styles.footer}
-        onPress={() => navigation.navigate('Impressum')}
+        onPress={() => navigation.navigate('impressum')}
       >
         <Text style={styles.footerText}>Impressum</Text>
       </TouchableOpacity>
@@ -53,12 +61,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   grid: {
-    flexDirection: 'row',
+    flexDirection: 'grind',
     justifyContent: 'space-between',
+    flex: 1,
+    alignItems: 'center',
   },
   card: {
-    width: '48%',
-    aspectRatio: 1,
+    width: '100%',
+    aspectRatio: 2,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,

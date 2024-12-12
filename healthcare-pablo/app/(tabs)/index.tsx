@@ -25,7 +25,7 @@ export default function Index() {
       </View>
       <TouchableOpacity
         style={styles.footer}
-        onPress={() => navigation.navigate('Impressum')}
+        onPress={() => navigation.navigate('impressum')}
       >
         <Text style={styles.footerText}>Impressum</Text>
       </TouchableOpacity>
