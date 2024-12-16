@@ -6,7 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 import HomeScreen from './(tabs)/index';
 import LoginScreen from './(tabs)/login';
-import RegisterScreen from './register';
+import RegisterScreen from './(tabs)/register';
 import DashboardScreen from './(tabs)/dashboard';
 import AppointmentsScreen from './(tabs)/appointments';
 import ImpressumScreen from './(tabs)/impressum';
