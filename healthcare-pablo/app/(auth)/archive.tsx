@@ -8,7 +8,7 @@ const patients = [
   { id: '3', name: 'Bob Johnson', dob: '1975-03-08' },
 ];
 
-export default function RecordsScreen() {
+export default function ArchiveScreen() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const renderItem = ({ item }) => (
