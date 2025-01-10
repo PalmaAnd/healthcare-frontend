@@ -16,14 +16,15 @@ import { ArrowUpDown } from "lucide-react";
 
 // Generate fake data
 const generateFakeData = (count) => {
-    const urgencies = ["Low", "Medium", "High", "Critical"];
+    const urgencies = ["Low", "Medium", "High"];
     const statuses = ["Open", "In Progress", "Pending", "Closed"];
+    const medications = ["Aspirin", "Paracetamol", "Ibuprofen", "Loratadine"];
 
     return Array.from({ length: count }, (_, i) => ({
         case_number: crypto.randomUUID(),
         title: `Case ${i + 1}`,
         description: `This is a description for Case ${i + 1}. It provides a brief overview of the patient's condition.`,
-        current_medication: `Medication ${String.fromCharCode(65 + (i % 26))}`,
+        current_medication: medications[Math.floor(Math.random() * medications.length)],
         urgency: urgencies[Math.floor(Math.random() * urgencies.length)],
         status: statuses[Math.floor(Math.random() * statuses.length)],
         created_at: new Date(
@@ -44,8 +45,6 @@ const getUrgencyColor = (urgency) => {
         case "medium":
             return "bg-yellow-500 text-black";
         case "high":
-            return "bg-orange-500 text-white";
-        case "critical":
             return "bg-red-500 text-white";
         default:
             return "bg-gray-500 text-white";
@@ -57,7 +56,7 @@ const getStatusColor = (status) => {
         case "open":
             return "bg-blue-500 text-white";
         case "in progress":
-            return "bg-purple-500 text-white";
+            return "bg-green-500 text-white";
         case "pending":
             return "bg-yellow-500 text-black";
         case "closed":

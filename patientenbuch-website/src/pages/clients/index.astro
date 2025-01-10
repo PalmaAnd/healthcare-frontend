@@ -42,7 +42,7 @@ const getUserTypeBadgeColor = (userType) => {
   switch (userType) {
     case 1: return 'bg-blue-500 text-white';
     case 2: return 'bg-purple-500 text-white';
-    case 3: return 'bg-gold-500 text-black';
+    case 3: return 'bg-[#fbbf24] text-black';
     default: return 'bg-gray-500 text-white';
   }
 };
@@ -57,7 +57,7 @@ const getUserTypeBadgeColor = (userType) => {
         <CardTitle>Client List</CardTitle>
       </CardHeader>
       <CardContent>
-        <ClientFilters client:load />
+        <ClientFilters> </ClientFilters>
         <div class="overflow-x-auto">
           <Table id="clients-table">
             <TableHeader>
@@ -77,9 +77,9 @@ const getUserTypeBadgeColor = (userType) => {
             <TableBody>
               {clients.map((client) => (
                 <TableRow key={client.username}>
-                  <TableCell class="font-medium">{client.username}</TableCell>
+                  <TableCell className="font-medium">{client.username}</TableCell>
                   <TableCell>
-                    <Badge class={getUserTypeBadgeColor(client.user_type)}>{getUserTypeLabel(client.user_type)}</Badge>
+                    <Badge className={getUserTypeBadgeColor(client.user_type)}>{getUserTypeLabel(client.user_type)}</Badge>
                   </TableCell>
                   <TableCell>{client.phone_number}</TableCell>
                   <TableCell>{client.birthday}</TableCell>

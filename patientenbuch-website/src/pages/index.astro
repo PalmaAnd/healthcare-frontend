@@ -1,5 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+// Check login status on the client-side
+let isLoggedIn = false;
+
+if (typeof window !== "undefined") {
+    isLoggedIn = await localStorage.getItem("isLoggedIn") === "true";
+}
+console.log(isLoggedIn);
+
 ---
 
 <Layout title="Homepage">
@@ -36,17 +45,36 @@ import Layout from "../layouts/Layout.astro";
         </div>
     </section>
 
-    <section class="text-center py-12">
-        <h2 class="text-3xl font-bold mb-4">
-            Ready to Take Control of Your Health?
-        </h2>
-        <p class="text-xl mb-8">
-            Join our community of health-conscious individuals today.
-        </p>
-        <a
-            href="/login"
-            class="bg-accent text-primary px-6 py-3 rounded-full text-lg font-semibold hover:bg-secondary transition-colors"
-            >Register Now</a
-        >
-    </section>
+    {
+        isLoggedIn ? (
+            <section class="text-center py-12">
+                <h2 class="text-3xl font-bold mb-4">Welcome Back!</h2>
+                <p class="text-xl mb-8">
+                    We're glad to have you here. Explore our services or book an
+                    appointment.
+                </p>
+                <a
+                    href="/appointments"
+                    class="bg-accent text-primary px-6 py-3 rounded-full text-lg font-semibold hover:bg-secondary transition-colors"
+                >
+                    Book an Appointment
+                </a>
+            </section>
+        ) : (
+            <section class="text-center py-12">
+                <h2 class="text-3xl font-bold mb-4">
+                    Ready to Take Control of Your Health?
+                </h2>
+                <p class="text-xl mb-8">
+                    Join our community of health-conscious individuals today.
+                </p>
+                <a
+                    href="/login"
+                    class="bg-accent text-primary px-6 py-3 rounded-full text-lg font-semibold hover:bg-secondary transition-colors"
+                >
+                    Register Now
+                </a>
+            </section>
+        )
+    }
 </Layout>
