@@ -2,14 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useAuth} from '../auth/AuthContext';
 
 export default function DashboardScreen() {
-  const {setToken} = useAuth();
   const navigation = useNavigation();
-  const handleLogout = () => {
-      setToken(null);
-      };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -36,23 +32,16 @@ export default function DashboardScreen() {
             <Ionicons name="document-text-outline" size={48} color="#50B498" />
             <Text style={[styles.cardText, { color: '#50B498' }]}>Patient Records</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-                      style={[styles.card, { backgroundColor: '#f0fff4' }]}
-                      onPress={() => navigation.navigate('Records')}
-                    >
-            <Ionicons name="log-out-outline" size={48} color="#50B498" />
-            <Text style={[styles.cardText, { color: '#50B498' }]}>Log out</Text>
-          </TouchableOpacity>
 
         </View>
       </View>
-        <TouchableOpacity
+      <TouchableOpacity
         style={styles.footer}
-        onPress={() => navigation.navigate('./impressum')}
-        >
-            <Text style={styles.footerText}>Impressum</Text>
-        </TouchableOpacity>
-      </View>
+        onPress={() => navigation.navigate('impressum')}
+      >
+        <Text style={styles.footerText}>Impressum</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -102,3 +91,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
+
