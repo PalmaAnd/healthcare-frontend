@@ -1,9 +1,296 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "@/layouts/Layout.astro";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import { CaseFilters } from "@/components/CaseFilters";
+import { ArrowUpDown } from "lucide-react";
+
+// Generate fake data
+const generateFakeData = (count) => {
+    const urgencies = ["Low", "Medium", "High", "Critical"];
+    const statuses = ["Open", "In Progress", "Pending", "Closed"];
+
+    return Array.from({ length: count }, (_, i) => ({
+        case_number: crypto.randomUUID(),
+        title: `Case ${i + 1}`,
+        description: `This is a description for Case ${i + 1}. It provides a brief overview of the patient's condition.`,
+        current_medication: `Medication ${String.fromCharCode(65 + (i % 26))}`,
+        urgency: urgencies[Math.floor(Math.random() * urgencies.length)],
+        status: statuses[Math.floor(Math.random() * statuses.length)],
+        created_at: new Date(
+            Date.now() - Math.floor(Math.random() * 10000000000)
+        ).toISOString(),
+        updated_at: new Date(
+            Date.now() - Math.floor(Math.random() * 1000000000)
+        ).toISOString(),
+    }));
+};
+
+const cases = generateFakeData(10);
+
+const getUrgencyColor = (urgency) => {
+    switch (urgency.toLowerCase()) {
+        case "low":
+            return "bg-green-500 text-white";
+        case "medium":
+            return "bg-yellow-500 text-black";
+        case "high":
+            return "bg-orange-500 text-white";
+        case "critical":
+            return "bg-red-500 text-white";
+        default:
+            return "bg-gray-500 text-white";
+    }
+};
+
+const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+        case "open":
+            return "bg-blue-500 text-white";
+        case "in progress":
+            return "bg-purple-500 text-white";
+        case "pending":
+            return "bg-yellow-500 text-black";
+        case "closed":
+            return "bg-gray-500 text-white";
+        default:
+            return "bg-gray-500 text-white";
+    }
+};
 ---
 
-<Layout title="Cases - Dr. Health">
-	<h1 class="text-3xl font-bold mb-4">Cases</h1>
-	<p>Here you can view and manage medical cases.</p>
+<Layout title="Doctor's Cases">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">My Cases</h1>
+
+        <Card>
+            <CardHeader>
+                <CardTitle>Case List</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <CaseFilters></CaseFilters>
+                <div class="overflow-x-auto">
+                    <Table id="cases-table">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="case_number"
+                                    >Case Number <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="title"
+                                    >Title <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead>Description</TableHead>
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="current_medication"
+                                    >Current Medication <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="urgency"
+                                    >Urgency <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="status"
+                                    >Status <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="created_at"
+                                    >Created At <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead
+                                    className="cursor-pointer"
+                                    data-sort="updated_at"
+                                    >Updated At <ArrowUpDown
+                                        className="inline-block ml-2 h-4 w-4"
+                                    /></TableHead
+                                >
+                                <TableHead>Actions</TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {
+                                cases.map((case_item) => (
+                                    <TableRow key={case_item.case_number}>
+                                        <TableCell className="font-medium">
+                                            {case_item.case_number.slice(0, 8)}
+                                        </TableCell>
+                                        <TableCell>{case_item.title}</TableCell>
+                                        <TableCell>
+                                            <p
+                                                class="max-w-xs truncate"
+                                                title={case_item.description}
+                                            >
+                                                {case_item.description}
+                                            </p>
+                                        </TableCell>
+                                        <TableCell>
+                                            {case_item.current_medication}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge
+                                                className={getUrgencyColor(
+                                                    case_item.urgency
+                                                )}
+                                            >
+                                                {case_item.urgency}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge
+                                                className={getStatusColor(
+                                                    case_item.status
+                                                )}
+                                            >
+                                                {case_item.status}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell>
+                                            {new Date(
+                                                case_item.created_at
+                                            ).toLocaleDateString()}
+                                        </TableCell>
+                                        <TableCell>
+                                            {new Date(
+                                                case_item.updated_at
+                                            ).toLocaleDateString()}
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button variant="outline" size="sm">
+                                                View
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </div>
+            </CardContent>
+        </Card>
+    </main>
 </Layout>
 
+<script>
+    let cases = Array.from(document.querySelectorAll("#cases-table tbody tr"));
+    let sortColumn = "case_number";
+    let sortDirection = "asc";
+
+    function filterCases(searchTerm = "", urgency = "", status = "") {
+        cases.forEach((row) => {
+            const text = row.textContent?.toLowerCase() || "";
+            const rowUrgency = row
+                .querySelector("td:nth-child(5)")
+                ?.textContent?.trim();
+            const rowStatus = row
+                .querySelector("td:nth-child(6)")
+                ?.textContent?.trim();
+            const showSearch = text.includes(searchTerm.toLowerCase());
+            const showUrgency = !urgency || rowUrgency === urgency;
+            const showStatus = !status || rowStatus === status;
+            row.style.display =
+                showSearch && showUrgency && showStatus ? "" : "none";
+        });
+    }
+
+    function sortCases(column: string) {
+        const dataType =
+            column === "created_at" || column === "updated_at"
+                ? "date"
+                : "string";
+        const direction =
+            column === sortColumn && sortDirection === "asc" ? "desc" : "asc";
+
+        cases.sort((a, b) => {
+            const aValue =
+                a
+                    .querySelector(
+                        `td:nth-child(${Array.from(document.querySelectorAll("#cases-table th")).findIndex((h) => h.dataset.sort === column) + 1})`
+                    )
+                    ?.textContent?.trim() || "";
+            const bValue =
+                b
+                    .querySelector(
+                        `td:nth-child(${Array.from(document.querySelectorAll("#cases-table th")).findIndex((h) => h.dataset.sort === column) + 1})`
+                    )
+                    ?.textContent?.trim() || "";
+
+            if (dataType === "date") {
+                return direction === "asc"
+                    ? new Date(aValue).getTime() - new Date(bValue).getTime()
+                    : new Date(bValue).getTime() - new Date(aValue).getTime();
+            } else {
+                return direction === "asc"
+                    ? aValue.localeCompare(bValue)
+                    : bValue.localeCompare(aValue);
+            }
+        });
+
+        cases.forEach((row) =>
+            document.querySelector("#cases-table tbody")?.appendChild(row)
+        );
+        sortColumn = column;
+        sortDirection = direction;
+    }
+
+    document
+        .querySelectorAll("#cases-table th[data-sort]")
+        .forEach((header) => {
+            header.addEventListener("click", () => {
+                const column = header.getAttribute("data-sort");
+                if (column) sortCases(column);
+            });
+        });
+
+    // Setup event listeners for filters
+    document.addEventListener("astro:page-load", () => {
+        const caseFilters = document.querySelector("case-filters");
+        if (caseFilters) {
+            caseFilters.addEventListener("search", (e: CustomEvent) =>
+                filterCases(e.detail)
+            );
+            caseFilters.addEventListener("urgency", (e: CustomEvent) =>
+                filterCases(undefined, e.detail)
+            );
+            caseFilters.addEventListener("status", (e: CustomEvent) =>
+                filterCases(undefined, undefined, e.detail)
+            );
+        }
+    });
+</script>
+
+<style>
+    th[data-sort] {
+        cursor: pointer;
+    }
+    th[data-sort]:hover {
+        background-color: #f3f4f6;
+    }
+</style>
