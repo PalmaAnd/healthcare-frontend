@@ -7,8 +7,6 @@ let isLoggedIn = false;
 if (typeof window !== "undefined") {
     isLoggedIn = await localStorage.getItem("isLoggedIn") === "true";
 }
-console.log(isLoggedIn);
-
 ---
 
 <Layout title="Homepage">
