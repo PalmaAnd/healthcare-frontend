@@ -1,0 +1,42 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { PrescriptionManager } from "@/components/PrescriptionManager";
+
+// Fake data for demonstration
+const prescriptions = [
+    {
+        id: 1,
+        patientName: "John Doe",
+        medication: "Amoxicillin",
+        dosage: "500mg",
+        frequency: "3 times daily",
+        startDate: "2023-06-01",
+        endDate: "2023-06-14",
+    },
+    {
+        id: 2,
+        patientName: "Jane Smith",
+        medication: "Lisinopril",
+        dosage: "10mg",
+        frequency: "Once daily",
+        startDate: "2023-05-15",
+        endDate: "2023-08-15",
+    },
+    {
+        id: 3,
+        patientName: "Mike Johnson",
+        medication: "Metformin",
+        dosage: "1000mg",
+        frequency: "Twice daily",
+        startDate: "2023-06-10",
+        endDate: "2023-09-10",
+    },
+];
+---
+
+<Layout title="Prescription Management">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Prescription Management</h1>
+        <PrescriptionManager client:load initialPrescriptions={prescriptions} />
+    </main>
+</Layout>
