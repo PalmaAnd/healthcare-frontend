@@ -1,0 +1,11 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { PatientsRecord } from "@/components/PatientsRecord";
+---
+
+<Layout title="Patients Record">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Patients Record</h1>
+        <PatientsRecord client:load />
+    </main>
+</Layout>

@@ -1,4 +1,5 @@
 ---
+import { Sidebar } from "@/components/Sidebar";
 import "../styles/base.css";
 import { ViewTransitions } from "astro:transitions";
 
@@ -39,50 +40,12 @@ const { title } = Astro.props;
         <ViewTransitions />
     </head>
     <body class="bg-background text-primary">
-        <header class="bg-background p-4 border-b-2">
-            <nav class="container mx-auto flex justify-between items-center">
-                <a href="/" class="text-2xl font-bold text-accent"
-                    >Patientenbuch</a
-                >
-                <ul class="flex space-x-4">
-                    <li>
-                        <a
-                            href="/login"
-                            class="text-accent hover:text-secondary"
-                            >Login/Register</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/appointments"
-                            class="text-accent hover:text-secondary"
-                            >Appointments</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/clients"
-                            class="text-accent hover:text-secondary">Clients</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/cases"
-                            class="text-accent hover:text-secondary">Cases</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href="/dashboard"
-                            class="text-accent hover:text-secondary">Dashboard</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main class="container mx-auto p-4">
-            <slot />
-        </main>
+        <div class="flex h-screen bg-gray-100">
+            <Sidebar client:load />
+            <main class="flex-1 overflow-y-auto p-4">
+                <slot />
+            </main>
+        </div>
         <footer class="bg-background p-4 mt-8 border-t-2">
             <div class="container mx-auto text-center">
                 <a href="/impressum" class="text-accent hover:text-secondary"
