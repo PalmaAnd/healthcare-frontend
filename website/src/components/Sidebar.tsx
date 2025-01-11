@@ -35,9 +35,11 @@ export function Sidebar() {
                     </nav>
                 </ScrollArea>
                 <div className="p-4 border-t border-gray-200">
-                    <Button variant="ghost" className="w-full justify-start">
-                        <Settings className="mr-2 h-4 w-4" />
-                        Settings
+                    <Button key="/settings" variant="ghost" className="w-full justify-start" asChild>
+                        <a href="/settings">
+                            <Settings className="mr-2 h-4 w-4" />
+                            Settings
+                        </a>
                     </Button>
                     <Button variant="ghost" className="w-full justify-start text-red-600">
                         <LogOut className="mr-2 h-4 w-4" />
