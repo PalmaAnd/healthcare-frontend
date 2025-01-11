@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Home, Calendar, FileText, Users, Pill, MessageSquare, Settings, LogOut, Paperclip, PersonStanding, PhoneCall, DoorOpen, CaseLower, File } from 'lucide-react';
+import { Home, Calendar, FileText, Users, Pill, MessageSquare, Settings, LogOut, Paperclip, PhoneCall, DoorOpen, File } from 'lucide-react';
 
 const sidebarItems = [
     { icon: Home, label: 'Dashboard', href: '/dashboard' },

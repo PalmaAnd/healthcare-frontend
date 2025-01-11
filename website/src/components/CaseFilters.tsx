@@ -1,5 +1,3 @@
-// src/components/CaseFilters.tsx
-import React from 'react';
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Search, AlertTriangle } from 'lucide-react';
