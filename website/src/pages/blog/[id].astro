@@ -1,0 +1,57 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+// Fake data for demonstration
+const blogPosts = [
+    {
+        id: 1,
+        title: "Understanding Diabetes: Symptoms and Management",
+        date: "2023-06-15",
+        content:
+            "Diabetes is a chronic condition that affects millions of people worldwide. In this article, we'll explore the common symptoms of diabetes and discuss effective management strategies. Early detection and proper management are key to living a healthy life with diabetes.",
+    },
+    {
+        id: 2,
+        title: "The Importance of Regular Check-ups",
+        date: "2023-06-10",
+        content:
+            "Regular medical check-ups are an essential part of preventive healthcare. They help detect potential health issues early, when they're most treatable. In this post, we'll discuss the benefits of regular check-ups and what you can expect during a typical visit.",
+    },
+    {
+        id: 3,
+        title: "Nutrition Tips for a Healthy Heart",
+        date: "2023-06-05",
+        content:
+            "A heart-healthy diet is crucial for maintaining cardiovascular health. This article provides practical nutrition tips to keep your heart strong and reduce the risk of heart disease. Learn about heart-friendly foods and dietary patterns that can make a significant difference in your overall health.",
+    },
+];
+
+const { id } = Astro.params;
+const post = blogPosts.find((p) => p.id.toString() === id);
+
+if (!post) {
+    return Astro.redirect("/404");
+}
+---
+
+<Layout title={post.title}>
+    <main class="container mx-auto px-4 py-8">
+        <Card>
+            <CardHeader>
+                <CardTitle>{post.title}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <p class="text-sm text-gray-500 mb-4">{post.date}</p>
+                <div class="prose max-w-none">
+                    <p>{post.content}</p>
+                </div>
+            </CardContent>
+        </Card>
+        <div class="mt-6">
+            <a href="/blog" class="text-blue-500 hover:underline"
+                >&larr; Back to Blog</a
+            >
+        </div>
+    </main>
+</Layout>

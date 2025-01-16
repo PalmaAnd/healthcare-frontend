@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { FeedbackSystem } from "@/components/FeedbackSystem";
+---
+
+<Layout title="Provide Feedback">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Provide Feedback</h1>
+    <FeedbackSystem client:load />
+  </main>
+</Layout>
+

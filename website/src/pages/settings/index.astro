@@ -1,0 +1,11 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SettingsPage } from "@/components/SettingsPage";
+---
+
+<Layout title="Settings">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Settings</h1>
+        <SettingsPage client:load />
+    </main>
+</Layout>
