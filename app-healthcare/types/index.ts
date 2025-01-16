@@ -16,11 +16,24 @@ export interface Doctor {
     availableSlots?: string[];
 }
 
-export interface MedicalFile {
-    id: string;
-    name: string;
-    type: string;
-    date: string;
-    size: string;
-    url: string;
+export interface Patient {
+    username: string;
+    phone_number: Int16Array;
+    birthday: Date;
+    gender: string;
+    svnr: Int16Array;
+    allergies?: string[];
+    current_medication?: string[];
+    medical_conditions?: string[];
+}
+
+export interface Case {
+    case_number: Int16Array;
+     title: string;
+     description: string;
+     current_medication?: string[];
+     urgency: string;
+     status: string;
+     created_at: Date;
+     updated_at: Date;
 }
