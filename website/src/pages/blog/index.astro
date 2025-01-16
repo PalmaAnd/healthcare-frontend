@@ -1,0 +1,56 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+// Fake data for demonstration
+const blogPosts = [
+    {
+        id: 1,
+        title: "Understanding Diabetes: Symptoms and Management",
+        date: "2023-06-15",
+        excerpt:
+            "Learn about the common symptoms of diabetes and effective management strategies.",
+    },
+    {
+        id: 2,
+        title: "The Importance of Regular Check-ups",
+        date: "2023-06-10",
+        excerpt:
+            "Discover why regular medical check-ups are crucial for maintaining good health.",
+    },
+    {
+        id: 3,
+        title: "Nutrition Tips for a Healthy Heart",
+        date: "2023-06-05",
+        excerpt:
+            "Explore dietary recommendations that can help keep your heart healthy and strong.",
+    },
+];
+---
+
+<Layout title="Health Blog">
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Health Blog</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {
+                blogPosts.map((post) => (
+                    <Card key={post.id}>
+                        <CardHeader>
+                            <CardTitle>{post.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <p class="text-sm text-gray-500 mb-2">
+                                {post.date}
+                            </p>
+                            <p class="mb-4">{post.excerpt}</p>
+                            <Button variant="outline" asChild>
+                                <a href={`/blog/${post.id}`}>Read More</a>
+                            </Button>
+                        </CardContent>
+                    </Card>
+                ))
+            }
+        </div>
+    </main>
+</Layout>

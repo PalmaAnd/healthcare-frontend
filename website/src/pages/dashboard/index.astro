@@ -1,0 +1,12 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { DashboardContent } from "@/components/dashboard/DashboardContent";
+---
+
+<Layout title="Doctor Dashboard">
+    <div class="flex h-screen bg-gray-100">
+        <main class="flex-1 overflow-y-auto p-4">
+            <DashboardContent client:load />
+        </main>
+    </div>
+</Layout>

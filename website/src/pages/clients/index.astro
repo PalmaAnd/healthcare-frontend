@@ -1,0 +1,170 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ClientFilters } from "@/components/ClientFilters";
+import { ArrowUpDown } from 'lucide-react';
+
+// Generate fake data
+const generateFakeData = (count) => {
+  const userTypes = [1, 2, 3]; // Assuming different user types
+  const genders = ['Male', 'Female', 'Other'];
+  const allergies = ['None', 'Peanuts', 'Lactose', 'Gluten', 'Penicillin'];
+  const medicalConditions = ['None', 'Diabetes', 'Hypertension', 'Asthma', 'Arthritis'];
+
+  return Array.from({ length: count }, (_, i) => ({
+    username: `user${i + 1}`,
+    user_type: userTypes[Math.floor(Math.random() * userTypes.length)],
+    phone_number: Math.floor(1000000000 + Math.random() * 9000000000),
+    birthday: new Date(Date.now() - Math.floor(Math.random() * 2000000000000)).toISOString().split('T')[0],
+    gender: genders[Math.floor(Math.random() * genders.length)],
+    svnr: Math.floor(1000000000 + Math.random() * 9000000000),
+    allergies: allergies[Math.floor(Math.random() * allergies.length)],
+    current_medications: `Medication ${String.fromCharCode(65 + i % 26)}`,
+    medical_conditions: medicalConditions[Math.floor(Math.random() * medicalConditions.length)],
+  }));
+};
+
+const clients = generateFakeData(20);
+
+const getUserTypeLabel = (userType) => {
+  switch (userType) {
+    case 1: return 'Regular';
+    case 2: return 'Premium';
+    case 3: return 'VIP';
+    default: return 'Unknown';
+  }
+};
+
+const getUserTypeBadgeColor = (userType) => {
+  switch (userType) {
+    case 1: return 'bg-blue-500 text-white';
+    case 2: return 'bg-purple-500 text-white';
+    case 3: return 'bg-[#fbbf24] text-black';
+    default: return 'bg-gray-500 text-white';
+  }
+};
+---
+
+<Layout title="Client Management">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Client Management</h1>
+    
+    <Card>
+      <CardHeader>
+        <CardTitle>Client List</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ClientFilters> </ClientFilters>
+        <div class="overflow-x-auto">
+          <Table id="clients-table">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="cursor-pointer" data-sort="username">Username <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="user_type">User Type <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="phone_number">Phone Number <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="birthday">Birthday <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="gender">Gender <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="svnr">SVNR <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="allergies">Allergies <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="current_medications">Current Medications <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead className="cursor-pointer" data-sort="medical_conditions">Medical Conditions <ArrowUpDown className="inline-block ml-2 h-4 w-4" /></TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {clients.map((client) => (
+                <TableRow key={client.username}>
+                  <TableCell className="font-medium">{client.username}</TableCell>
+                  <TableCell>
+                    <Badge className={getUserTypeBadgeColor(client.user_type)}>{getUserTypeLabel(client.user_type)}</Badge>
+                  </TableCell>
+                  <TableCell>{client.phone_number}</TableCell>
+                  <TableCell>{client.birthday}</TableCell>
+                  <TableCell>{client.gender}</TableCell>
+                  <TableCell>{client.svnr}</TableCell>
+                  <TableCell>{client.allergies}</TableCell>
+                  <TableCell>{client.current_medications}</TableCell>
+                  <TableCell>{client.medical_conditions}</TableCell>
+                  <TableCell>
+                    <Button variant="outline" size="sm">View</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </CardContent>
+    </Card>
+  </main>
+</Layout>
+
+<script>
+  let clients = Array.from(document.querySelectorAll('#clients-table tbody tr'));
+  let sortColumn = 'username';
+  let sortDirection = 'asc';
+
+  function filterClients(searchTerm = '', userType = '', gender = '') {
+    clients.forEach(row => {
+      const text = row.textContent?.toLowerCase() || '';
+      const rowUserType = row.querySelector('td:nth-child(2)')?.textContent?.trim();
+      const rowGender = row.querySelector('td:nth-child(5)')?.textContent?.trim();
+      const showSearch = text.includes(searchTerm.toLowerCase());
+      const showUserType = !userType || rowUserType === userType;
+      const showGender = !gender || rowGender === gender;
+      row.style.display = showSearch && showUserType && showGender ? '' : 'none';
+    });
+  }
+
+  function sortClients(column: string) {
+    const dataType = column === 'birthday' ? 'date' : 'string';
+    const direction = column === sortColumn && sortDirection === 'asc' ? 'desc' : 'asc';
+
+    clients.sort((a, b) => {
+      const aValue = a.querySelector(`td:nth-child(${Array.from(document.querySelectorAll('#clients-table th')).findIndex(h => h.dataset.sort === column) + 1})`)?.textContent?.trim() || '';
+      const bValue = b.querySelector(`td:nth-child(${Array.from(document.querySelectorAll('#clients-table th')).findIndex(h => h.dataset.sort === column) + 1})`)?.textContent?.trim() || '';
+
+      if (dataType === 'date') {
+        return direction === 'asc' 
+          ? new Date(aValue).getTime() - new Date(bValue).getTime()
+          : new Date(bValue).getTime() - new Date(aValue).getTime();
+      } else {
+        return direction === 'asc' 
+          ? aValue.localeCompare(bValue)
+          : bValue.localeCompare(aValue);
+      }
+    });
+
+    clients.forEach(row => document.querySelector('#clients-table tbody')?.appendChild(row));
+    sortColumn = column;
+    sortDirection = direction;
+  }
+
+  document.querySelectorAll('#clients-table th[data-sort]').forEach(header => {
+    header.addEventListener('click', () => {
+      const column = header.getAttribute('data-sort');
+      if (column) sortClients(column);
+    });
+  });
+
+  // Setup event listeners for filters
+  document.addEventListener('astro:page-load', () => {
+    const clientFilters = document.querySelector('client-filters');
+    if (clientFilters) {
+      clientFilters.addEventListener('search', (e: CustomEvent) => filterClients(e.detail));
+      clientFilters.addEventListener('userType', (e: CustomEvent) => filterClients(undefined, e.detail));
+      clientFilters.addEventListener('gender', (e: CustomEvent) => filterClients(undefined, undefined, e.detail));
+    }
+  });
+</script>
+
+<style>
+  th[data-sort] {
+    cursor: pointer;
+  }
+  th[data-sort]:hover {
+    background-color: #f3f4f6;
+  }
+</style>

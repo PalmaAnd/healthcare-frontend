@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SecureMessaging } from "@/components/SecureMessaging";
+---
+
+<Layout title="Secure Messaging">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Secure Messaging</h1>
+    <SecureMessaging client:load />
+  </main>
+</Layout>
+
