@@ -1,13 +1,11 @@
 ---
 // src/pages/login.astro
-import '../styles/base.css';
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/base.css";
 ---
 
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-    <div class="max-w-md w-full">
-        <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">
-            Doctor Login
-        </h1>
+<Layout title="Login">
+    <div class="max-w-md w-full m-auto">
         <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div class="mb-4">
                 <label
@@ -77,16 +75,4 @@ import '../styles/base.css';
             >
         </p>
     </div>
-
-    <!-- <script>
-        const form = document.querySelector('form');
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            console.log('Login attempt:', { email, password });
-            // Here you would typically send a request to your server to authenticate the user
-            alert('Login functionality would be implemented on the server side.');
-        });
-    </script> -->
-</body>
+</Layout>
