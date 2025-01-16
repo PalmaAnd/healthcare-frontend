@@ -63,12 +63,22 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="tracker"
+        options={{
+          title: 'Tracker',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'checkbox-sharp' : 'checkbox-outline'} color={color} size={24} />
+          )
+        }}
+      />
+      <Tabs.Screen
         name="profile/legal_notice"
         options={{
           title: 'Legal Notice',
           href: null,
         }}
       />
+      
     </Tabs>
   );
 }
