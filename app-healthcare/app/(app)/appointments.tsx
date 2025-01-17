@@ -59,7 +59,7 @@ export default function AppointmentsScreen() {
       appointment.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getUrgencyColor = (urgency) => {
+  const getUrgencyColor = (urgency: any) => {
     switch (urgency) {
       case 'low':
         return '#388E3C'; // Dunkles Grün für niedrige Dringlichkeit

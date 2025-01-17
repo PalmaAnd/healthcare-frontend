@@ -62,16 +62,16 @@ const PatientProfile = () => {
         }
     };
 
-    const handleArrayInput = (text, field) => {
-        const items = text.split(',').map(item => item.trim());
+    const handleArrayInput = (text: string, field: string) => {
+        const items = text.split(',').map((item: string) => item.trim());
         setProfileData(prev => ({ ...prev, [field]: items }));
     };
 
-    const formatArrayToString = (array) => {
+    const formatArrayToString = (array: any[]) => {
         return array.join(', ');
     };
 
-    const handleDateChange = (event, date) => {
+    const handleDateChange = (event: any, date: any) => {
         setShowDatePicker(false);
         if (date) {
             setProfileData(prev => ({ ...prev, birthday: date }));
@@ -86,7 +86,7 @@ const PatientProfile = () => {
         );
     }
 
-    const renderSection = (title, children) => (
+    const renderSection = (title: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | null | undefined, children: string | number | boolean | React.JSX.Element | Iterable<React.ReactNode> | null | undefined) => (
         <View style={styles.section}>
             <Text style={styles.sectionTitle}>{title}</Text>
             <View style={styles.sectionContent}>
@@ -113,6 +113,12 @@ const PatientProfile = () => {
             </View>
 
             <View style={styles.avatarContainer}>
+                <TouchableOpacity
+                    style={styles.footerLink}
+                    onPress={() => navigation.navigate('profile/summary')}
+                >
+                    <Text style={styles.footerLinkText}>Overview</Text>
+                </TouchableOpacity>
                 {editing && (
                     <TouchableOpacity style={styles.changePhotoButton}>
                         <Text style={styles.changePhotoText}>Change Photo</Text>

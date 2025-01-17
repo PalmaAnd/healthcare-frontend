@@ -78,6 +78,13 @@ export default function TabLayout() {
           href: null,
         }}
       />
+      <Tabs.Screen
+        name="profile/summary"
+        options={{
+          title: 'Summary',
+          href: null,
+        }}
+      />
       
     </Tabs>
   );

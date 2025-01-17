@@ -46,7 +46,7 @@ export default function DashboardScreen() {
   // Dynamische Button-Breite für 2 Spalten
   const cardWidth = (screenWidth - 60) / 2; // 60 = Padding (20px links + rechts) + Spaltenabstand
 
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({ item, index }: { item: typeof buttons[0]; index: number }) => {
     // Zentrum für letzten Button bei ungerader Anzahl
     const isLastRowSingle = index === buttons.length - 1 && buttons.length % 2 !== 0;
 
