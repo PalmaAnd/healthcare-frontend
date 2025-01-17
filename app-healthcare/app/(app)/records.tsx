@@ -1,42 +1,62 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { Card, Title, Paragraph, Searchbar, Chip, Button, useTheme } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 
-const patients = [
-  { id: '1', name: 'John Doe', dob: '1980-05-15' },
-  { id: '2', name: 'Jane Smith', dob: '1992-11-22' },
-  { id: '3', name: 'Bob Johnson', dob: '1975-03-08' },
+// Mock data for a single person's cases
+const personalCases = [
+  { id: 'c1', title: 'Flu Symptoms', status: 'Closed', openedDate: '2023-05-10', closedDate: '2023-05-20', doctor: 'Dr. Smith' },
+  { id: 'c2', title: 'Annual Check-up', status: 'Open', openedDate: '2023-06-10', doctor: 'Dr. Johnson' },
+  { id: 'c3', title: 'Sprained Ankle', status: 'Closed', openedDate: '2023-04-01', closedDate: '2023-04-15', doctor: 'Dr. Brown' },
+  { id: 'c4', title: 'Allergy Consultation', status: 'Open', openedDate: '2023-06-05', doctor: 'Dr. Davis' },
+  { id: 'c5', title: 'Back Pain', status: 'Closed', openedDate: '2023-03-15', closedDate: '2023-03-30', doctor: 'Dr. Wilson' },
 ];
 
 export default function RecordsScreen() {
   const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+  const theme = useTheme();
 
-  const renderItem = ({ item }) => (
-    <View style={styles.patientItem}>
-      <View>
-        <Text style={styles.patientName}>{item.name}</Text>
-        <Text style={styles.patientDob}>DOB: {item.dob}</Text>
-      </View>
-      <TouchableOpacity style={styles.viewButton}>
-        <Text style={styles.viewButtonText}>View Record</Text>
-      </TouchableOpacity>
-    </View>
+  const filteredCases = personalCases.filter(caseItem =>
+    caseItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    caseItem.doctor.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const renderCase = ({ item }) => (
+    <Card style={styles.card}>
+      <Card.Content>
+        <Title>{item.title}</Title>
+        <Paragraph>Doctor: {item.doctor}</Paragraph>
+        <Paragraph>Opened: {item.openedDate}</Paragraph>
+        {item.status === 'Closed' && <Paragraph>Closed: {item.closedDate}</Paragraph>}
+        <Chip 
+          mode="outlined" 
+          style={{ 
+            marginTop: 8,
+            borderColor: item.status === 'Open' ? theme.colors.primary : theme.colors.accent 
+          }}
+        >
+          {item.status}
+        </Chip>
+      </Card.Content>
+      <Card.Actions>
+        <Button onPress={() => router.push(`/case-details/${item.id}`)}>View Details</Button>
+      </Card.Actions>
+    </Card>
   );
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <Ionicons name="search-outline" size={20} color="#718096" style={styles.searchIcon} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Search patients"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-      </View>
+      <Title style={styles.screenTitle}>My Medical Records</Title>
+      <Searchbar
+        placeholder="Search cases or doctors"
+        onChangeText={setSearchQuery}
+        value={searchQuery}
+        style={styles.searchBar}
+      />
       <FlatList
-        data={patients}
-        renderItem={renderItem}
+        data={filteredCases}
+        renderItem={renderCase}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContent}
       />
@@ -47,53 +67,22 @@ export default function RecordsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f0f0',
   },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#f7fafc',
-    borderRadius: 8,
-    marginHorizontal: 20,
+  screenTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
     marginVertical: 16,
-    paddingHorizontal: 12,
   },
-  searchIcon: {
-    marginRight: 8,
-  },
-  searchInput: {
-    flex: 1,
-    paddingVertical: 12,
-    fontSize: 16,
+  searchBar: {
+    margin: 16,
   },
   listContent: {
-    padding: 20,
+    paddingBottom: 16,
   },
-  patientItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
-  },
-  patientName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  patientDob: {
-    fontSize: 14,
-    color: '#718096',
-  },
-  viewButton: {
-    backgroundColor: '#ebf8ff',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 4,
-  },
-  viewButtonText: {
-    color: '#4299e1',
-    fontWeight: 'bold',
+  card: {
+    margin: 8,
   },
 });
 

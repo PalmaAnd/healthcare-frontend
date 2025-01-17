@@ -37,7 +37,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="records"
         options={{
-          title: 'records',
+          title: 'Records',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'file-tray-full-sharp' : 'file-tray-full-outline'} color={color} size={24} />
           )

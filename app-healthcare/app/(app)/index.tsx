@@ -1,40 +1,86 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+const buttons = [
+  {
+    id: '1',
+    title: 'Profile',
+    icon: 'person-outline',
+    color: '#50B498',
+    backgroundColor: '#f0fff4',
+    screen: 'profile',
+  },
+  {
+    id: '2',
+    title: 'Appointments',
+    icon: 'calendar-outline',
+    color: '#4299e1',
+    backgroundColor: '#ebf8ff',
+    screen: 'appointments',
+  },
+  {
+    id: '3',
+    title: 'Patient Records',
+    icon: 'document-text-outline',
+    color: '#50B498',
+    backgroundColor: '#f0fff4',
+    screen: 'records',
+  },
+  {
+    id: '4',
+    title: 'Med-Tracker',
+    icon: 'medkit-outline',
+    color: '#4299e1',
+    backgroundColor: '#ebf8ff',
+    screen: 'tracker',
+  },
+  // Weitere bei bedarf hinzufügen
+];
+
 export default function DashboardScreen() {
   const navigation = useNavigation();
+  const screenWidth = Dimensions.get('window').width;
+
+  // Dynamische Button-Breite für 2 Spalten
+  const cardWidth = (screenWidth - 60) / 2; // 60 = Padding (20px links + rechts) + Spaltenabstand
+
+  const renderItem = ({ item, index }) => {
+    // Zentrum für letzten Button bei ungerader Anzahl
+    const isLastRowSingle = index === buttons.length - 1 && buttons.length % 2 !== 0;
+
+    return (
+      <View
+        style={[
+          styles.cardWrapper,
+          {
+            width: isLastRowSingle ? cardWidth : cardWidth, // Gleiche Breite für alle Buttons
+            alignSelf: isLastRowSingle ? 'center' : 'flex-start',
+          },
+        ]}
+      >
+        <TouchableOpacity
+          style={[styles.card, { backgroundColor: item.backgroundColor, width: cardWidth, height: cardWidth }]}
+          onPress={() => navigation.navigate(item.screen)}
+        >
+          <Ionicons name={item.icon} size={48} color={item.color} />
+          <Text style={[styles.cardText, { color: item.color }]}>{item.title}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>Quick Actions</Text>
-        <View style={styles.grid}>
-          <TouchableOpacity
-            style={[styles.card, { backgroundColor: '#f0fff4' }]}
-            onPress={() => navigation.navigate('Profile')}
-          >
-            <Ionicons name="person-outline" size={48} color="#50B498" />
-            <Text style={[styles.cardText, { color: '#50B498' }]}>Profile</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.card, { backgroundColor: '#ebf8ff' }]}
-            onPress={() => navigation.navigate('appointments')}
-          >
-            <Ionicons name="calendar-outline" size={48} color="#4299e1" />
-            <Text style={[styles.cardText, { color: '#4299e1' }]}>Appointments</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.card, { backgroundColor: '#f0fff4' }]}
-            onPress={() => navigation.navigate('Records')}
-          >
-            <Ionicons name="document-text-outline" size={48} color="#50B498" />
-            <Text style={[styles.cardText, { color: '#50B498' }]}>Patient Records</Text>
-          </TouchableOpacity>
-
-        </View>
-      </View>
+      <FlatList
+        data={buttons}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        numColumns={2}
+        columnWrapperStyle={styles.columnWrapper}
+        contentContainerStyle={styles.content}
+      />
     </View>
   );
 }
@@ -43,26 +89,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'space-between',
   },
   content: {
-    flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  grid: {
-    flexDirection: 'row',
+  columnWrapper: {
     justifyContent: 'space-between',
-    flex: 1,
-    alignItems: 'center',
+    marginBottom: 16,
+  },
+  cardWrapper: {
+    marginBottom: 16,
   },
   card: {
-    width: '100%',
-    aspectRatio: 2,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
@@ -74,15 +113,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  footer: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
-  },
-  footerText: {
-    textAlign: 'center',
-    color: '#718096',
-    fontSize: 14,
-  },
 });
-
