@@ -47,9 +47,26 @@ export default function TabLayout() {
         name="impressum"
         options={{
           title: 'Impressum',
+          href: null,
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'information-circle-sharp' : 'information-circle-outline'} color={color} size={24} />
           )
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'person-circle' : 'person-circle-outline'} color={color} size={24} />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name="profile/legal_notice"
+        options={{
+          title: 'Legal Notice',
+          href: null,
         }}
       />
     </Tabs>
