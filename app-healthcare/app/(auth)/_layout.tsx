@@ -7,10 +7,14 @@ export default function AuthLayout() {
             screenOptions={{
                 tabBarActiveTintColor: '#50B498',
                 tabBarInactiveTintColor: '#718096',
-                tabBarStyle: {
-                    borderTopWidth: 1,
-                    borderTopColor: '#e2e8f0',
-                },
+                headerStyle: {
+                    backgroundColor: '#468585',
+                  },
+                  headerShadowVisible: false,
+                  headerTintColor: '#fff',
+                  tabBarStyle: {
+                    backgroundColor: '#25292e',
+                  },
             }}>
             <Tabs.Screen
                 name="login"
