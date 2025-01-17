@@ -1,22 +1,35 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useEffect } from 'react';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen() {
+export default function Index() {
   const router = useRouter();
 
-  const handleLogin = () => {
-    // Add your login logic here
-    router.replace('/(app)');
+  useEffect(() => {
+    checkAuthState();
+  }, []);
+
+  const checkAuthState = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      // Add a small delay to prevent flash of loading screen
+      setTimeout(() => {
+        if (userToken) {
+          router.replace('/(app)');
+        } else {
+          router.replace('/(auth)/login');
+        }
+      }, 1000);
+    } catch (error) {
+      console.error('Error checking auth state:', error);
+      router.replace('/(auth)/login');
+    }
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleLogin}
-      >
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
+      <ActivityIndicator size="large" color="#50B498" />
     </View>
   );
 }
@@ -24,52 +37,8 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
-  },
-  content: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    color: '#25292e',
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  button: {
-    backgroundColor: '#50B498',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    marginVertical: 8,
-    width: '100%',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  outlineButton: {
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#50B498',
-  },
-  outlineButtonText: {
-    color: '#50B498',
-  },
-  footer: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
-  },
-  footerText: {
-    textAlign: 'center',
-    color: '#718096',
-    fontSize: 14,
+    backgroundColor: '#fff',
   },
 });
