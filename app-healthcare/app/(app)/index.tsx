@@ -66,7 +66,7 @@ const buttons = [
     icon: 'fitness-outline',
     color: '#38a169',
     backgroundColor: '#f0fff4',
-    screen: 'medications',
+    screen: 'medications/index',
   }
 ];
 
