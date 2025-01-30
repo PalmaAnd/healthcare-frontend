@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const buttons = [
-  { id: '1', title: 'Profile', icon: 'person-outline', color: '#50B498', backgroundColor: '#f0fff4', screen: 'profile' },
+  { id: '1', title: 'Profile', icon: 'person-outline', color: '#50B498', backgroundColor: '#f0fff4', screen: 'profile/index' },
   { id: '2', title: 'Appointments', icon: 'calendar-outline', color: '#4299e1', backgroundColor: '#ebf8ff', screen: 'appointments' },
   { id: '3', title: 'Patient Records', icon: 'document-text-outline', color: '#50B498', backgroundColor: '#f0fff4', screen: 'records' },
   { id: '4', title: 'Med-Tracker', icon: 'medkit-outline', color: '#4299e1', backgroundColor: '#ebf8ff', screen: 'tracker' },
