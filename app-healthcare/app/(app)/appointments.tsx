@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Modal, TouchableOpacity } from 'react-native';
 import { List, Card, Paragraph, Title, Chip, Button, Searchbar, useTheme } from 'react-native-paper';
-import { useRouter } from 'expo-router';
 import uuid from 'react-native-uuid';
 
-// Mock data with "doctor" field
+// Mock data
 const appointments = [
   {
     id: '1',
@@ -46,42 +45,45 @@ const appointments = [
 
 export default function AppointmentsScreen() {
   const [searchQuery, setSearchQuery] = useState('');
-  const router = useRouter();
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const theme = useTheme();
 
-  // Temporary search logic for "doctor" and "title"
   const filteredAppointments = appointments.filter(
-    appointment =>
+    (appointment) =>
       appointment.doctor.toLowerCase().includes(searchQuery.toLowerCase()) ||
       appointment.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const getUrgencyColor = (urgency: any) => {
+  const getUrgencyColor = (urgency) => {
     switch (urgency) {
       case 'low':
-        return '#388E3C'; // Dunkles Grün für niedrige Dringlichkeit
+        return '#388E3C';
       case 'medium':
-        return '#FFA000'; // Dunkleres Gelb für mittlere Dringlichkeit
+        return '#FFA000';
       case 'high':
-        return '#D32F2F'; // Dunkleres Rot für hohe Dringlichkeit
+        return '#D32F2F';
       default:
-        return '#757575'; // Grau als Fallback
+        return '#757575';
     }
-  };  
+  };
+
+  const openDetails = (appointment) => {
+    setSelectedAppointment(appointment);
+    setModalVisible(true);
+  };
+
+  const closeDetails = () => {
+    setSelectedAppointment(null);
+    setModalVisible(false);
+  };
 
   const renderAppointment = ({ item }) => (
     <Card style={styles.card}>
       <Card.Content>
         <View style={styles.headerRow}>
           <Title>{item.doctor}</Title>
-          <Chip
-            mode="contained"
-            textStyle={{ color: '#FFFFFF' }} // Weißer Text für Lesbarkeit
-            style={{
-              backgroundColor: getUrgencyColor(item.urgency),
-              borderColor: getUrgencyColor(item.urgency),
-            }}
-          >
+          <Chip style={{ backgroundColor: getUrgencyColor(item.urgency), borderColor: getUrgencyColor(item.urgency) }}>
             {item.urgency.toUpperCase()}
           </Chip>
         </View>
@@ -89,35 +91,46 @@ export default function AppointmentsScreen() {
         <Paragraph>{`${item.date} at ${item.time}`}</Paragraph>
         <Paragraph style={styles.updatedAt}>Updated: {new Date(item.updatedAt).toLocaleString()}</Paragraph>
         <Paragraph style={styles.description}>{item.description}</Paragraph>
-        <List.Item
-          title="Current Medication"
-          description={item.currentMedication}
-          left={props => <List.Icon {...props} icon="pill" />}
-        />
+        <List.Item title="Current Medication" description={item.currentMedication} left={(props) => <List.Icon {...props} icon="pill" />} />
         <View style={styles.footer}>
           <Paragraph style={styles.caseNumber}>Case: {item.caseNumber}</Paragraph>
         </View>
       </Card.Content>
       <Card.Actions>
-        <Button onPress={() => router.push(`/appointment-details/${item.id}`)}>View Details</Button>
+        <Button onPress={() => openDetails(item)}>View Details</Button>
       </Card.Actions>
     </Card>
   );
 
   return (
     <View style={styles.container}>
-      <Searchbar
-        placeholder="Search appointments"
-        onChangeText={setSearchQuery}
-        value={searchQuery}
-        style={styles.searchBar}
-      />
-      <FlatList
-        data={filteredAppointments}
-        renderItem={renderAppointment}
-        keyExtractor={item => item.id}
-        contentContainerStyle={styles.listContent}
-      />
+      <Searchbar placeholder="Search appointments" onChangeText={setSearchQuery} value={searchQuery} style={styles.searchBar} />
+      <FlatList data={filteredAppointments} renderItem={renderAppointment} keyExtractor={(item) => item.id} contentContainerStyle={styles.listContent} />
+
+      {/* Details Modal */}
+      <Modal visible={modalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            {selectedAppointment && (
+              <>
+                <Title>{selectedAppointment.doctor}</Title>
+                <Chip style={{ backgroundColor: getUrgencyColor(selectedAppointment.urgency), marginBottom: 10 }}>
+                  {selectedAppointment.urgency.toUpperCase()}
+                </Chip>
+                <Paragraph style={styles.subtitle}>{selectedAppointment.title}</Paragraph>
+                <Paragraph>{`${selectedAppointment.date} at ${selectedAppointment.time}`}</Paragraph>
+                <Paragraph style={styles.updatedAt}>Updated: {new Date(selectedAppointment.updatedAt).toLocaleString()}</Paragraph>
+                <Paragraph style={styles.description}>{selectedAppointment.description}</Paragraph>
+                <List.Item title="Current Medication" description={selectedAppointment.currentMedication} left={(props) => <List.Icon {...props} icon="pill" />} />
+                <Paragraph style={styles.caseNumber}>Case: {selectedAppointment.caseNumber}</Paragraph>
+                <Button mode="contained" onPress={closeDetails} style={styles.closeButton}>
+                  Close
+                </Button>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -164,4 +177,21 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer: {
+    width: '90%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 10,
+  },
+  closeButton: {
+    marginTop: 10,
+  },
 });
+

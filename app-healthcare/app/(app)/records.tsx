@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Modal, TouchableOpacity } from 'react-native';
 import { Card, Title, Paragraph, Searchbar, Chip, Button, useTheme } from 'react-native-paper';
-import { useRouter } from 'expo-router';
 
 // Mock data for a single person's cases
 const personalCases = [
@@ -14,13 +13,24 @@ const personalCases = [
 
 export default function RecordsScreen() {
   const [searchQuery, setSearchQuery] = useState('');
-  const router = useRouter();
+  const [selectedCase, setSelectedCase] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const theme = useTheme();
 
   const filteredCases = personalCases.filter(caseItem =>
     caseItem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     caseItem.doctor.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const openDetails = (caseItem) => {
+    setSelectedCase(caseItem);
+    setModalVisible(true);
+  };
+
+  const closeDetails = () => {
+    setSelectedCase(null);
+    setModalVisible(false);
+  };
 
   const renderCase = ({ item }) => (
     <Card style={styles.card}>
@@ -29,18 +39,18 @@ export default function RecordsScreen() {
         <Paragraph>Doctor: {item.doctor}</Paragraph>
         <Paragraph>Opened: {item.openedDate}</Paragraph>
         {item.status === 'Closed' && <Paragraph>Closed: {item.closedDate}</Paragraph>}
-        <Chip 
-          mode="outlined" 
-          style={{ 
+        <Chip
+          mode="outlined"
+          style={{
             marginTop: 8,
-            borderColor: item.status === 'Open' ? theme.colors.primary : theme.colors.accent 
+            borderColor: item.status === 'Open' ? theme.colors.primary : theme.colors.accent
           }}
         >
           {item.status}
         </Chip>
       </Card.Content>
       <Card.Actions>
-        <Button onPress={() => router.push(`/case-details/${item.id}`)}>View Details</Button>
+        <Button onPress={() => openDetails(item)}>View Details</Button>
       </Card.Actions>
     </Card>
   );
@@ -60,6 +70,34 @@ export default function RecordsScreen() {
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContent}
       />
+
+      {/* Details Modal */}
+      <Modal visible={modalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            {selectedCase && (
+              <>
+                <Title>{selectedCase.title}</Title>
+                <Paragraph>Doctor: {selectedCase.doctor}</Paragraph>
+                <Paragraph>Opened: {selectedCase.openedDate}</Paragraph>
+                {selectedCase.status === 'Closed' && <Paragraph>Closed: {selectedCase.closedDate}</Paragraph>}
+                <Chip
+                  mode="outlined"
+                  style={{
+                    marginTop: 8,
+                    borderColor: selectedCase.status === 'Open' ? theme.colors.primary : theme.colors.accent
+                  }}
+                >
+                  {selectedCase.status}
+                </Chip>
+                <Button mode="contained" onPress={closeDetails} style={styles.closeButton}>
+                  Close
+                </Button>
+              </>
+            )}
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -84,5 +122,20 @@ const styles = StyleSheet.create({
   card: {
     margin: 8,
   },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer: {
+    width: '90%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    elevation: 10,
+  },
+  closeButton: {
+    marginTop: 10,
+  },
 });
-

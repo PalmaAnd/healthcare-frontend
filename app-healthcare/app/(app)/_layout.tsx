@@ -89,6 +89,24 @@ export default function TabLayout() {
       <Tabs.Screen name="insights" options={{ title: 'Health Insights', href: null }} />
       <Tabs.Screen name="documents" options={{ title: 'Document Vault', href: null }} />
       <Tabs.Screen name="medications/index" options={{ title: 'Medications', href: null }} />
+      <Tabs.Screen
+              name="articles/index"
+              options={{
+                    title: 'Tracker',
+                    tabBarIcon: ({ color, focused }) => (
+                      <Ionicons name={focused ? 'newspaper-sharp' : 'newspaper-outline'} color={color} size={24} />
+                    )
+              }}
+        />
+        <Tabs.Screen
+          name="medications/report"
+          options={{
+                title: 'Tracker',
+                tabBarIcon: ({ color, focused }) => (
+                  <Ionicons name={focused ? 'warning-sharp' : 'warning-outline'} color={color} size={24} />
+                )
+          }}
+         />
 
     </Tabs>
   );
