@@ -10,7 +10,7 @@ const sidebarItems = [
     { icon: FileText, label: 'Patient Records', href: '/patients' },
     { icon: Users, label: 'Clients', href: '/clients' },
     { icon: Pill, label: 'Prescriptions', href: '/prescriptions' },
-    { icon: MessageSquare, label: 'Messages', href: '/messages' },
+    { icon: MessageSquare, label: 'Messages', href: '/secure-messaging' },
     { icon: PhoneCall, label: 'Telemedicine', href: '/telemedicine' },
     { icon: DoorOpen, label: 'Patient Portal', href: '/portal' },
 ];
